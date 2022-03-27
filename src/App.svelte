@@ -1,5 +1,8 @@
 <script lang="ts">
   import Header from "./components/header.svelte";
+  import ControlPanel from "./components/controlPanel.svelte";
+
+  let mobileControlPanelOpen = true;
 </script>
 
 <main>
@@ -7,9 +10,10 @@
 
 	  </div> -->
   <Header />
+  <ControlPanel {mobileControlPanelOpen} isForMobile={false} />
 </main>
 
-<style>
+<style lang="scss">
   main {
     box-sizing: border-box;
     color: white;
@@ -18,18 +22,5 @@
     gap: 2em;
     position: relative;
     margin-bottom: 75px;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
-
-  @media (min-width: 640px) {
-    main {
-      max-width: none;
-    }
   }
 </style>

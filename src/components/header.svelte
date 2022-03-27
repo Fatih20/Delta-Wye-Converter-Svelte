@@ -13,5 +13,9 @@
     flex-direction: column;
     justify-content: center;
     padding: 1em 1em;
+
+    * {
+      text-align: center;
+    }
   }
 </style>
