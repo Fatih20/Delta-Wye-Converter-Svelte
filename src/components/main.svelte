@@ -1,7 +1,46 @@
 <script lang="ts">
+  import { ComponentUsedStore } from "../stores";
+
+  const rootPath = "CompressedCircuitImages/";
+
+  interface ICircuitTypeIndex {
+    L: string;
+    C: string;
+    R: string;
+  }
+
+  const deltaIndex: ICircuitTypeIndex = {
+    R: `${rootPath}Delta.svg`,
+    L: `${rootPath}DeltaInductor.svg`,
+    C: `${rootPath}DeltaCapacitor.svg`,
+  };
+
+  const piIndex: ICircuitTypeIndex = {
+    R: `${rootPath}Pi.svg`,
+    L: `${rootPath}PiInductor.svg`,
+    C: `${rootPath}PiCapacitor.svg`,
+  };
+
+  const wyeIndex: ICircuitTypeIndex = {
+    R: `${rootPath}Wye.svg`,
+    L: `${rootPath}WyeInductor.svg`,
+    C: `${rootPath}WyeCapacitor.svg`,
+  };
+
+  const teeIndex: ICircuitTypeIndex = {
+    R: `${rootPath}Tee.svg`,
+    L: `${rootPath}TeeInductor.svg`,
+    C: `${rootPath}TeeCapacitor.svg`,
+  };
+
+  type keyIndex = keyof typeof deltaIndex;
+
   let isDelta = true;
   let isWye = true;
   let convertingDtW = true;
+
+  $: deltaImageUsed = (isDelta ? deltaIndex : piIndex)[$ComponentUsedStore];
+  $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
 </script>
 
 <main>
@@ -19,9 +58,13 @@
       >
     </div>
     <div id="field-container">
-      <!-- <div class="svg-container">
-            <img src={} alt="" class="circuit-image">
-        </div> -->
+      <div class="svg-container">
+        <img
+          src={deltaImageUsed}
+          alt="{isDelta ? 'Delta' : 'Pi'} circuit"
+          class="circuit-image"
+        />
+      </div>
       <div id="delta-input-container" class:isDelta />
     </div>
   </div>
@@ -40,6 +83,14 @@
       >
     </div>
     <div id="field-container">
+      <div class="svg-container">
+        <img
+          src={wyeImageUSed}
+          alt="{isWye ? 'Wye' : 'Tee'} circuit"
+          class="circuit-image"
+        />
+      </div>
+
       <div id="wye-input-container" class:isWye />
     </div>
   </div>
@@ -93,6 +144,15 @@
     }
   }
 
+  .network-type-chooser {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 0;
+    width: 100%;
+  }
+
   button.network-button {
     border: solid 1px #000000;
     border-radius: 2px;
@@ -129,6 +189,8 @@
   }
 
   #wye-container {
+    @include DeltaWyeContainer;
+
     @media (min-width: 900px) {
       grid-area: wye;
     }
