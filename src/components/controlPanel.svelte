@@ -71,7 +71,6 @@
 <style lang="scss">
   main {
     align-items: center;
-    display: none;
     flex-direction: column;
     gap: 10px;
     justify-content: flex-end;
@@ -87,13 +86,18 @@
       -moz-appearance: textfield;
     }
 
-    @media (min-width: 900px) {
-      display: flex;
-      justify-content: center;
+    &:not(.isMobile) {
+      display: none;
+      @media (min-width: 900px) {
+        display: flex;
+        justify-content: center;
+      }
     }
 
-    &.mobile {
-      display: none;
+    &.isMobile {
+      &:not(.shown) {
+        display: none;
+      }
       &.shown {
         display: flex;
       }
