@@ -5,7 +5,7 @@
   <h1 id="title">Delta to Wye Converter</h1>
 </main>
 
-<style>
+<style type="scss">
   main {
     align-items: center;
     background-color: black;
@@ -13,9 +13,5 @@
     flex-direction: column;
     justify-content: center;
     padding: 1em 1em;
-  }
-
-  main * {
-    text-align: center;
   }
 </style>
