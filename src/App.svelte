@@ -1,6 +1,7 @@
 <script lang="ts">
   import Header from "./components/header.svelte";
   import ControlPanel from "./components/controlPanel.svelte";
+  import Main from "./components/main.svelte";
 
   let mobileControlPanelOpen = false;
 </script>
@@ -16,6 +17,7 @@
   </div>
   <Header />
   <ControlPanel {mobileControlPanelOpen} isForMobile={false} />
+  <Main />
 </main>
 
 <style lang="scss">
