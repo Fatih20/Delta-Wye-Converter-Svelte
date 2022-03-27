@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1em 1em;
+    padding: 1em;
 
     * {
       text-align: center;
