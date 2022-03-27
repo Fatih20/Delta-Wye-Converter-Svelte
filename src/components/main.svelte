@@ -8,17 +8,20 @@
   <div id="delta-container">
     <div class="network-type-chooser">
       <button
-        class="network-button"
         class:selected={isDelta}
+        class="network-button"
         on:click={() => (isDelta = true)}>Delta</button
       >
       <button
-        class="network-button"
         class:selected={!isDelta}
+        class="network-button"
         on:click={() => (isDelta = false)}>Pi</button
       >
     </div>
     <div id="field-container">
+      <!-- <div class="svg-container">
+            <img src={} alt="" class="circuit-image">
+        </div> -->
       <div id="delta-input-container" class:isDelta />
     </div>
   </div>
@@ -90,6 +93,19 @@
     }
   }
 
+  button.network-button {
+    border: solid 1px #000000;
+    border-radius: 2px;
+    background-color: #333333;
+    color: #abacae;
+    filter: drop-shadow(0 3px 5px #0000007a);
+    padding: 5px 0;
+    width: 50px;
+    &.selected {
+      color: white;
+    }
+  }
+
   @mixin DeltaWyeContainer {
     align-items: center;
     display: flex;
@@ -99,6 +115,8 @@
     @media (min-width: 900px) {
       width: min(100%, 600px);
     }
+
+    /* border: solid 1px white; */
   }
 
   #delta-container {
@@ -116,7 +134,7 @@
     }
   }
 
-  .field-container {
+  #field-container {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -128,6 +146,8 @@
     @media (min-width: 900px) {
       width: min(100%, 600px);
     }
+
+    /* border: solid 1px white; */
   }
 
   .svg-container {
@@ -166,6 +186,8 @@
       font-size: 1em;
     } */
     }
+
+    /* border: solid 1px white; */
   }
 
   #delta-input-container {
