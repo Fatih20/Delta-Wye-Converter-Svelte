@@ -6,13 +6,14 @@
     unitLongPrefixArray,
     unitPrefixInformation,
   } from "../utilities/types";
+  import { CurrentUnitStore } from "../stores";
 
   import { isInputValidFloat } from "../utilities/inputValidation";
   export let externalValue: inputConnectedVariable;
   export let changeExternalValue: (arg0: inputConnectedVariable) => void;
   export let changeDtW: () => void;
   export let currentUnitPrefix: unitLongPrefix;
-  export let currentUnit: unitOfComponentUsedType;
+  //   export let currentUnit: unitOfComponentUsedType;
 
   function handleValueChange(e: any) {
     let newValue = e.target.value;
@@ -40,7 +41,7 @@
     {#each unitLongPrefixArray as prefix}
       <option value={prefix} class="styled-option">
         {unitPrefixInformation(prefix)[1]}
-        {`${currentUnit}`}
+        {`${$CurrentUnitStore}`}
       </option>
     {/each}
   </select>

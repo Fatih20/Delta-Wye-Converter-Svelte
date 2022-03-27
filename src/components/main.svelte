@@ -1,5 +1,12 @@
 <script lang="ts">
-  import { ComponentUsedStore } from "../stores";
+  import ValidatedInput from "./input.svelte";
+  import { ComponentUsedStore, DecimalPlaceStore } from "../stores";
+  import { conversionFunction } from "../utilities/conversionLogic";
+  import type {
+    inputConnectedVariable,
+    unitLongPrefix,
+  } from "../utilities/types";
+  import Input from "./input.svelte";
 
   const rootPath = "CompressedCircuitImages/";
 
@@ -35,9 +42,114 @@
 
   type keyIndex = keyof typeof deltaIndex;
 
+  let raValue: inputConnectedVariable = "";
+  let rbValue: inputConnectedVariable = "";
+  let rcValue: inputConnectedVariable = "";
+
+  let raUnitPrefix: unitLongPrefix = "none";
+  let rbUnitPrefix: unitLongPrefix = "none";
+  let rcUnitPrefix: unitLongPrefix = "none";
+
+  let r1UnitPrefix: unitLongPrefix = "none";
+  let r2UnitPrefix: unitLongPrefix = "none";
+  let r3UnitPrefix: unitLongPrefix = "none";
+
+  let r1Value: inputConnectedVariable = "";
+  let r2Value: inputConnectedVariable = "";
+  let r3Value: inputConnectedVariable = "";
+
   let isDelta = true;
   let isWye = true;
   let convertingDtW = true;
+
+  $: conversionFunctionUsed = conversionFunction(
+    $ComponentUsedStore,
+    convertingDtW
+  );
+
+  function recalculateDelta(
+    r1Value: inputConnectedVariable,
+    r1UnitPrefix: unitLongPrefix,
+    r2Value: inputConnectedVariable,
+    r2UnitPrefix: unitLongPrefix,
+    r3Value: inputConnectedVariable,
+    r3UnitPrefix: unitLongPrefix,
+    DecimalPlaceStore: number
+  ) {
+    if (!(r1Value === "" || r2Value === "" || r3Value === "")) {
+      [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] =
+        conversionFunctionUsed(
+          r1Value,
+          r1UnitPrefix,
+          r2Value,
+          r2UnitPrefix,
+          r3Value,
+          r3UnitPrefix,
+          DecimalPlaceStore
+        );
+    } else {
+      [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] = [
+        "",
+        "none",
+        "",
+        "none",
+        "",
+        "none",
+      ];
+    }
+  }
+
+  function recalculateWye(
+    raValue: inputConnectedVariable,
+    raUnitPrefix: unitLongPrefix,
+    rbValue: inputConnectedVariable,
+    rbUnitPrefix: unitLongPrefix,
+    rcValue: inputConnectedVariable,
+    rcUnitPrefix: unitLongPrefix,
+    DecimalPlaceStore: number
+  ) {
+    if (!(raValue === "" || rbValue === "" || rcValue === "")) {
+      [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] =
+        conversionFunctionUsed(
+          raValue,
+          raUnitPrefix,
+          rbValue,
+          rbUnitPrefix,
+          rcValue,
+          rcUnitPrefix,
+          DecimalPlaceStore
+        );
+    } else {
+      [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] = [
+        "",
+        "none",
+        "",
+        "none",
+        "",
+        "none",
+      ];
+    }
+  }
+
+  $: convertingDtW
+    ? recalculateWye(
+        raValue,
+        raUnitPrefix,
+        rbValue,
+        rbUnitPrefix,
+        rcValue,
+        rcUnitPrefix,
+        $DecimalPlaceStore
+      )
+    : recalculateDelta(
+        r1Value,
+        r1UnitPrefix,
+        r2Value,
+        r2UnitPrefix,
+        r3Value,
+        r3UnitPrefix,
+        $DecimalPlaceStore
+      );
 
   $: deltaImageUsed = (isDelta ? deltaIndex : piIndex)[$ComponentUsedStore];
   $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
@@ -65,7 +177,38 @@
           class="circuit-image"
         />
       </div>
-      <div id="delta-input-container" class:isDelta />
+      <div id="delta-input-container" class:isDelta>
+        <ValidatedInput
+          externalValue={raValue}
+          changeExternalValue={(newValue) => {
+            raValue = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = true;
+          }}
+          currentUnitPrefix={raUnitPrefix}
+        />
+        <ValidatedInput
+          externalValue={rbValue}
+          changeExternalValue={(newValue) => {
+            rbValue = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = true;
+          }}
+          currentUnitPrefix={rbUnitPrefix}
+        />
+        <ValidatedInput
+          externalValue={rcValue}
+          changeExternalValue={(newValue) => {
+            rcValue = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = true;
+          }}
+          currentUnitPrefix={rcUnitPrefix}
+        />
+      </div>
     </div>
   </div>
   <div id="arrow-container" />
@@ -91,7 +234,38 @@
         />
       </div>
 
-      <div id="wye-input-container" class:isWye />
+      <div id="wye-input-container" class:isWye>
+        <ValidatedInput
+          externalValue={r1Value}
+          changeExternalValue={(newValue) => {
+            r1Value = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = false;
+          }}
+          currentUnitPrefix={r1UnitPrefix}
+        />
+        <ValidatedInput
+          externalValue={r2Value}
+          changeExternalValue={(newValue) => {
+            r2Value = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = false;
+          }}
+          currentUnitPrefix={r2UnitPrefix}
+        />
+        <ValidatedInput
+          externalValue={r3Value}
+          changeExternalValue={(newValue) => {
+            r3Value = newValue;
+          }}
+          changeDtW={() => {
+            convertingDtW = false;
+          }}
+          currentUnitPrefix={r3UnitPrefix}
+        />
+      </div>
     </div>
   </div>
 </main>
@@ -275,15 +449,15 @@
         "rb . . . rc"
         ". . . . .";
     }
-    & *:nth-child(1) {
+    *:nth-child(1) {
       grid-area: ra;
     }
 
-    & *:nth-child(2) {
+    *:nth-child(2) {
       grid-area: rb;
     }
 
-    & *:nth-child(3) {
+    *:nth-child(3) {
       grid-area: rc;
     }
   }
@@ -312,15 +486,19 @@
         ". . . . .";
     }
 
-    & *:nth-child(1) {
+    * {
+      color: red;
+    }
+
+    & > *:nth-child(1) {
       grid-area: r1;
     }
 
-    & *:nth-child(2) {
+    & > *:nth-child(2) {
       grid-area: r2;
     }
 
-    & *:nth-child(3) {
+    & > *:nth-child(3) {
       grid-area: r3;
     }
   }
