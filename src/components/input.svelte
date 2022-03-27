@@ -46,3 +46,35 @@
     {/each}
   </select>
 </main>
+
+<style lang="scss">
+  main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #styled-input {
+    background-color: #333333;
+    border: solid 2px #333333;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #fafafa;
+    filter: drop-shadow(0 3px 5px #0000007a);
+    padding: 0.4em;
+  }
+
+  #styled-select {
+    background-color: #333333;
+    border: solid 2px #333333;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #ffffff;
+    filter: drop-shadow(0 3px 5px #0000007a);
+    outline: none;
+    padding: 0.25em;
+    text-align: center;
+  }
+</style>
