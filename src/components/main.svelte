@@ -99,6 +99,10 @@
     }
   }
 
+  $: console.log(raUnitPrefix);
+  $: console.log(rbUnitPrefix);
+  $: console.log(rcUnitPrefix);
+
   function recalculateWye(
     raValue: inputConnectedVariable,
     raUnitPrefix: unitLongPrefix,
@@ -108,6 +112,7 @@
     rcUnitPrefix: unitLongPrefix,
     DecimalPlaceStore: number
   ) {
+    console.log("Bruh");
     if (!(raValue === "" || rbValue === "" || rcValue === "")) {
       [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] =
         conversionFunctionUsed(
@@ -153,6 +158,8 @@
 
   $: deltaImageUsed = (isDelta ? deltaIndex : piIndex)[$ComponentUsedStore];
   $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
+
+  // Coba approach yang lain. Gunakan event dispatcher on:change di tiap input. Lalu buat supaya ketika input di-change, rekalkulasi wye atau delta (tergantung itu input yang mana) dilakukan.
 </script>
 
 <main>
@@ -490,15 +497,15 @@
       color: red;
     }
 
-    & > *:nth-child(1) {
+    *:nth-child(1) {
       grid-area: r1;
     }
 
-    & > *:nth-child(2) {
+    *:nth-child(2) {
       grid-area: r2;
     }
 
-    & > *:nth-child(3) {
+    *:nth-child(3) {
       grid-area: r3;
     }
   }

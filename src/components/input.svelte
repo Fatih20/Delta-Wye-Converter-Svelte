@@ -37,7 +37,12 @@
     value={externalValue}
     on:change={handleValueChange}
   />
-  <select name="unit" id="styled-select" bind:value={currentUnitPrefix}>
+  <select
+    name="unit"
+    id="styled-select"
+    bind:value={currentUnitPrefix}
+    on:change={() => console.log(currentUnitPrefix)}
+  >
     {#each unitLongPrefixArray as prefix}
       <option value={prefix} class="styled-option">
         {unitPrefixInformation(prefix)[1]}

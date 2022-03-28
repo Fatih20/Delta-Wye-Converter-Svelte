@@ -12,9 +12,10 @@ function countInArray(array: string[], checkedValue: string) {
 export function isInputValidFloat (e : any, givenValue : string) : boolean{
     let inputValid = true;
     // Handle backspace
-    if (e.nativeEvent.data === null && givenValue.length > 0) {
-      givenValue = givenValue.substring(0, givenValue.length);
-    }
+    console.log(e);
+    // if (e.nativeEvent.data === null && givenValue.length > 0) {
+    //   givenValue = givenValue.substring(0, givenValue.length);
+    // }
 
     if (
       givenValue.length > 0 &&
@@ -23,12 +24,12 @@ export function isInputValidFloat (e : any, givenValue : string) : boolean{
       inputValid = false;
     }
 
-    if (
-      e.nativeEvent.data !== null &&
-      !setOfValidFloatCharacter.has(e.nativeEvent.data)
-    ) {
-      inputValid = false;
-    }
+    // if (
+    //   e.nativeEvent.data !== null &&
+    //   !setOfValidFloatCharacter.has(e.nativeEvent.data)
+    // ) {
+    //   inputValid = false;
+    // }
 
     return inputValid;
 }
