@@ -99,9 +99,9 @@
     }
   }
 
-  $: console.log(raUnitPrefix);
-  $: console.log(rbUnitPrefix);
-  $: console.log(rcUnitPrefix);
+  // $: console.log(raUnitPrefix);
+  // $: console.log(rbUnitPrefix);
+  // $: console.log(rcUnitPrefix);
 
   function recalculateWye(
     raValue: inputConnectedVariable,
@@ -136,25 +136,25 @@
     }
   }
 
-  $: convertingDtW
-    ? recalculateWye(
-        raValue,
-        raUnitPrefix,
-        rbValue,
-        rbUnitPrefix,
-        rcValue,
-        rcUnitPrefix,
-        $DecimalPlaceStore
-      )
-    : recalculateDelta(
-        r1Value,
-        r1UnitPrefix,
-        r2Value,
-        r2UnitPrefix,
-        r3Value,
-        r3UnitPrefix,
-        $DecimalPlaceStore
-      );
+  // $: convertingDtW
+  //   ? recalculateWye(
+  //       raValue,
+  //       raUnitPrefix,
+  //       rbValue,
+  //       rbUnitPrefix,
+  //       rcValue,
+  //       rcUnitPrefix,
+  //       $DecimalPlaceStore
+  //     )
+  //   : recalculateDelta(
+  //       r1Value,
+  //       r1UnitPrefix,
+  //       r2Value,
+  //       r2UnitPrefix,
+  //       r3Value,
+  //       r3UnitPrefix,
+  //       $DecimalPlaceStore
+  //     );
 
   $: deltaImageUsed = (isDelta ? deltaIndex : piIndex)[$ComponentUsedStore];
   $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
@@ -424,18 +424,6 @@
     position: absolute;
     width: 100%;
     z-index: 10;
-
-    input {
-      align-self: center;
-      width: min(100%, 200px);
-      height: 2.25em;
-
-      /* @media (min-width: 600px) {
-      height: 3.5em;
-      font-size: 1em;
-    } */
-    }
-
     /* border: solid 1px white; */
   }
 

@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import {
     inputConnectedVariable,
     unitLongPrefix,
-    unitOfComponentUsedType,
     unitLongPrefixArray,
     unitPrefixInformation,
     gridAreaType,
@@ -15,12 +15,15 @@
   export let changeDtW: () => void;
   export let currentUnitPrefix: unitLongPrefix;
   export let gridArea: gridAreaType;
+
+  const dispatch = createEventDispatcher();
   //   export let currentUnit: unitOfComponentUsedType;
 
   function handleValueChange(e: any) {
+    console.log(e);
     let newValue = e.target.value;
 
-    if (isInputValidFloat(e, newValue)) {
+    if (isInputValidFloat(newValue)) {
       changeDtW();
       if (newValue.length > 0) {
         console.log(newValue);
