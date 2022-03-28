@@ -99,9 +99,9 @@
     }
   }
 
-  // $: console.log(raUnitPrefix);
-  // $: console.log(rbUnitPrefix);
-  // $: console.log(rcUnitPrefix);
+  $: console.log(raUnitPrefix);
+  $: console.log(rbUnitPrefix);
+  $: console.log(rcUnitPrefix);
 
   function recalculateWye(
     raValue: inputConnectedVariable,
@@ -160,6 +160,7 @@
   $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
 
   // Coba approach yang lain. Gunakan event dispatcher on:change di tiap input. Lalu buat supaya ketika input di-change, rekalkulasi wye atau delta (tergantung itu input yang mana) dilakukan.
+  // Sepertinya unit tidak berubah seperti semestinya karena kita bind:value tidak bisa digunakan untuk props. Yang ke-bind adalah internal state yang diinisiasikan oleh props dari main ke input, bukan variabel yang ada di input sendiri. Coba lakukan binding seperti input value change. Gunakan on:change handler function.
 </script>
 
 <main>
@@ -195,6 +196,9 @@
           }}
           currentUnitPrefix={raUnitPrefix}
           gridArea="ra"
+          changeUnitPrefix={(newValue) => {
+            raUnitPrefix = newValue;
+          }}
         />
         <ValidatedInput
           externalValue={rbValue}
@@ -206,6 +210,9 @@
           }}
           currentUnitPrefix={rbUnitPrefix}
           gridArea="rb"
+          changeUnitPrefix={(newValue) => {
+            rbUnitPrefix = newValue;
+          }}
         />
         <ValidatedInput
           externalValue={rcValue}
@@ -217,6 +224,9 @@
           }}
           currentUnitPrefix={rcUnitPrefix}
           gridArea="rc"
+          changeUnitPrefix={(newValue) => {
+            rcUnitPrefix = newValue;
+          }}
         />
       </div>
     </div>
@@ -255,6 +265,9 @@
           }}
           currentUnitPrefix={r1UnitPrefix}
           gridArea="r1"
+          changeUnitPrefix={(newValue) => {
+            r1UnitPrefix = newValue;
+          }}
         />
         <ValidatedInput
           externalValue={r2Value}
@@ -266,6 +279,9 @@
           }}
           currentUnitPrefix={r2UnitPrefix}
           gridArea="r2"
+          changeUnitPrefix={(newValue) => {
+            r2UnitPrefix = newValue;
+          }}
         />
         <ValidatedInput
           externalValue={r3Value}
@@ -277,6 +293,9 @@
           }}
           currentUnitPrefix={r3UnitPrefix}
           gridArea="r3"
+          changeUnitPrefix={(newValue) => {
+            r3UnitPrefix = newValue;
+          }}
         />
       </div>
     </div>

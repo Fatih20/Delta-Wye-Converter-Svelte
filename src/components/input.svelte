@@ -14,13 +14,14 @@
   export let changeExternalValue: (arg0: inputConnectedVariable) => void;
   export let changeDtW: () => void;
   export let currentUnitPrefix: unitLongPrefix;
+  export let changeUnitPrefix: (arg0: unitLongPrefix) => void;
   export let gridArea: gridAreaType;
 
   const dispatch = createEventDispatcher();
   //   export let currentUnit: unitOfComponentUsedType;
 
   function handleValueChange(e: any) {
-    console.log(e);
+    // console.log(e);
     let newValue = e.target.value;
 
     if (isInputValidFloat(newValue)) {
@@ -30,8 +31,15 @@
         changeExternalValue(parseFloat(newValue));
       } else {
         changeExternalValue("");
+        dispatch("value-change");
       }
     }
+  }
+
+  function handleUnitChange(e: any) {
+    let newValue = e.target.value;
+    changeUnitPrefix(newValue);
+    // console.log(e);
   }
 </script>
 
@@ -40,13 +48,13 @@
     type="number"
     id="styled-input"
     value={externalValue}
-    on:change={handleValueChange}
+    on:input={handleValueChange}
   />
   <select
     name="unit"
     id="styled-select"
-    bind:value={currentUnitPrefix}
-    on:change={() => console.log(currentUnitPrefix)}
+    value={currentUnitPrefix}
+    on:change={handleUnitChange}
   >
     {#each unitLongPrefixArray as prefix}
       <option value={prefix} class="styled-option">
