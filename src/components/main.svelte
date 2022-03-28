@@ -194,6 +194,7 @@
             convertingDtW = true;
           }}
           currentUnitPrefix={raUnitPrefix}
+          gridArea="ra"
         />
         <ValidatedInput
           externalValue={rbValue}
@@ -204,6 +205,7 @@
             convertingDtW = true;
           }}
           currentUnitPrefix={rbUnitPrefix}
+          gridArea="rb"
         />
         <ValidatedInput
           externalValue={rcValue}
@@ -214,6 +216,7 @@
             convertingDtW = true;
           }}
           currentUnitPrefix={rcUnitPrefix}
+          gridArea="rc"
         />
       </div>
     </div>
@@ -251,6 +254,7 @@
             convertingDtW = false;
           }}
           currentUnitPrefix={r1UnitPrefix}
+          gridArea="r1"
         />
         <ValidatedInput
           externalValue={r2Value}
@@ -261,6 +265,7 @@
             convertingDtW = false;
           }}
           currentUnitPrefix={r2UnitPrefix}
+          gridArea="r2"
         />
         <ValidatedInput
           externalValue={r3Value}
@@ -271,6 +276,7 @@
             convertingDtW = false;
           }}
           currentUnitPrefix={r3UnitPrefix}
+          gridArea="r3"
         />
       </div>
     </div>
@@ -456,17 +462,6 @@
         "rb . . . rc"
         ". . . . .";
     }
-    *:nth-child(1) {
-      grid-area: ra;
-    }
-
-    *:nth-child(2) {
-      grid-area: rb;
-    }
-
-    *:nth-child(3) {
-      grid-area: rc;
-    }
   }
 
   #wye-input-container {
@@ -491,22 +486,6 @@
         ". . r3 . ."
         ". . . . ."
         ". . . . .";
-    }
-
-    * {
-      color: red;
-    }
-
-    *:nth-child(1) {
-      grid-area: r1;
-    }
-
-    *:nth-child(2) {
-      grid-area: r2;
-    }
-
-    *:nth-child(3) {
-      grid-area: r3;
     }
   }
 </style>

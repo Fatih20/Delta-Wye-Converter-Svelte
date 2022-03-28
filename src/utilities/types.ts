@@ -107,3 +107,5 @@ export type completePrefix = typeof completePrefixArray[number];
 export type  conversionFunctionOutputType = [number, unitLongPrefix, number, unitLongPrefix, number, unitLongPrefix];
 
 export type conversionFunctionType = (arg0:number, arg1 : unitLongPrefix, arg2:number, arg3: unitLongPrefix, arg4:number, arg5: unitLongPrefix, arg6: number) => conversionFunctionOutputType;
+
+export type gridAreaType = "ra" | "rb" | "rc" | "r1" | "r2" | "r3";
