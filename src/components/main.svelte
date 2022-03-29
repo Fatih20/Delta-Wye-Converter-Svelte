@@ -74,7 +74,7 @@
     r2UnitPrefix: unitLongPrefix,
     r3Value: inputConnectedVariable,
     r3UnitPrefix: unitLongPrefix,
-    DecimalPlaceStore: number
+    DecimalPlace: number
   ) {
     if (!(r1Value === "" || r2Value === "" || r3Value === "")) {
       [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] =
@@ -85,7 +85,7 @@
           r2UnitPrefix,
           r3Value,
           r3UnitPrefix,
-          DecimalPlaceStore
+          DecimalPlace
         );
     } else {
       [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] = [
@@ -110,7 +110,7 @@
     rbUnitPrefix: unitLongPrefix,
     rcValue: inputConnectedVariable,
     rcUnitPrefix: unitLongPrefix,
-    DecimalPlaceStore: number
+    DecimalPlace: number
   ) {
     console.log("Bruh");
     if (!(raValue === "" || rbValue === "" || rcValue === "")) {
@@ -122,7 +122,7 @@
           rbUnitPrefix,
           rcValue,
           rcUnitPrefix,
-          DecimalPlaceStore
+          DecimalPlace
         );
     } else {
       [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] = [
@@ -199,6 +199,18 @@
           changeUnitPrefix={(newValue) => {
             raUnitPrefix = newValue;
           }}
+          on:value-change={() => {
+            console.log("Bruh");
+            recalculateWye(
+              raValue,
+              raUnitPrefix,
+              rbValue,
+              rbUnitPrefix,
+              rcValue,
+              rcUnitPrefix,
+              $DecimalPlaceStore
+            );
+          }}
         />
         <ValidatedInput
           externalValue={rbValue}
@@ -213,6 +225,16 @@
           changeUnitPrefix={(newValue) => {
             rbUnitPrefix = newValue;
           }}
+          on:value-change={() =>
+            recalculateWye(
+              raValue,
+              raUnitPrefix,
+              rbValue,
+              rbUnitPrefix,
+              rcValue,
+              rcUnitPrefix,
+              $DecimalPlaceStore
+            )}
         />
         <ValidatedInput
           externalValue={rcValue}
@@ -227,6 +249,16 @@
           changeUnitPrefix={(newValue) => {
             rcUnitPrefix = newValue;
           }}
+          on:value-change={() =>
+            recalculateWye(
+              raValue,
+              raUnitPrefix,
+              rbValue,
+              rbUnitPrefix,
+              rcValue,
+              rcUnitPrefix,
+              $DecimalPlaceStore
+            )}
         />
       </div>
     </div>
@@ -268,6 +300,16 @@
           changeUnitPrefix={(newValue) => {
             r1UnitPrefix = newValue;
           }}
+          on:value-change={() =>
+            recalculateDelta(
+              r1Value,
+              r1UnitPrefix,
+              r2Value,
+              r2UnitPrefix,
+              r3Value,
+              r3UnitPrefix,
+              $DecimalPlaceStore
+            )}
         />
         <ValidatedInput
           externalValue={r2Value}
@@ -282,6 +324,16 @@
           changeUnitPrefix={(newValue) => {
             r2UnitPrefix = newValue;
           }}
+          on:value-change={() =>
+            recalculateDelta(
+              r1Value,
+              r1UnitPrefix,
+              r2Value,
+              r2UnitPrefix,
+              r3Value,
+              r3UnitPrefix,
+              $DecimalPlaceStore
+            )}
         />
         <ValidatedInput
           externalValue={r3Value}
@@ -296,6 +348,16 @@
           changeUnitPrefix={(newValue) => {
             r3UnitPrefix = newValue;
           }}
+          on:value-change={() =>
+            recalculateDelta(
+              r1Value,
+              r1UnitPrefix,
+              r2Value,
+              r2UnitPrefix,
+              r3Value,
+              r3UnitPrefix,
+              $DecimalPlaceStore
+            )}
         />
       </div>
     </div>

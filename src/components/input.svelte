@@ -27,18 +27,19 @@
     if (isInputValidFloat(newValue)) {
       changeDtW();
       if (newValue.length > 0) {
-        console.log(newValue);
+        // console.log(newValue);
         changeExternalValue(parseFloat(newValue));
       } else {
         changeExternalValue("");
-        dispatch("value-change");
       }
     }
+    dispatch("value-change");
   }
 
   function handleUnitChange(e: any) {
     let newValue = e.target.value;
     changeUnitPrefix(newValue);
+    dispatch("value-change");
     // console.log(e);
   }
 </script>
