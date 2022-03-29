@@ -7,7 +7,9 @@
     inputConnectedVariable,
     unitLongPrefix,
   } from "../utilities/types";
-  import Input from "./input.svelte";
+  import { library } from "@fortawesome/fontawesome-svg-core";
+  // import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
+  import { FontAwesomeIcon } from "fontawesome-svelte";
 
   const rootPath = "CompressedCircuitImages/";
 
@@ -199,6 +201,8 @@
           src={deltaImageUsed}
           alt="{isDelta ? 'Delta' : 'Pi'} circuit"
           class="circuit-image"
+          class:dimmed={!convertingDtW &&
+            (raValue == "" || rbValue == "" || rcValue == "")}
         />
       </div>
       <div id="delta-input-container" class:isDelta>
@@ -304,6 +308,8 @@
         <img
           src={wyeImageUSed}
           alt="{isWye ? 'Wye' : 'Tee'} circuit"
+          class:dimmed={convertingDtW &&
+            (r1Value == "" || r2Value == "" || r3Value == "")}
           class="circuit-image"
         />
       </div>

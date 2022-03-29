@@ -50,12 +50,14 @@
     id="styled-input"
     value={externalValue}
     on:input={handleValueChange}
+    on:focus={changeDtW}
   />
   <select
     name="unit"
     id="styled-select"
     value={currentUnitPrefix}
     on:change={handleUnitChange}
+    on:focus={changeDtW}
   >
     {#each unitLongPrefixArray as prefix}
       <option value={prefix} class="styled-option">
