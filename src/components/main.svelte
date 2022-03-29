@@ -3,6 +3,7 @@
   import { ComponentUsedStore, DecimalPlaceStore } from "../stores";
   import { conversionFunction } from "../utilities/conversionLogic";
   import type {
+    componentUsedType,
     inputConnectedVariable,
     unitLongPrefix,
   } from "../utilities/types";
@@ -62,10 +63,10 @@
   let isWye = true;
   let convertingDtW = true;
 
-  $: conversionFunctionUsed = conversionFunction(
-    $ComponentUsedStore,
-    convertingDtW
-  );
+  // $: conversionFunctionUsed = conversionFunction(
+  //   $ComponentUsedStore,
+  //   convertingDtW
+  // );
 
   function recalculateDelta(
     r1Value: inputConnectedVariable,
@@ -74,8 +75,14 @@
     r2UnitPrefix: unitLongPrefix,
     r3Value: inputConnectedVariable,
     r3UnitPrefix: unitLongPrefix,
-    DecimalPlace: number
+    decimalPlace: number,
+    componentUsed: componentUsedType,
+    convertingDtw: boolean
   ) {
+    const conversionFunctionUsed = conversionFunction(
+      componentUsed,
+      convertingDtW
+    );
     if (!(r1Value === "" || r2Value === "" || r3Value === "")) {
       [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] =
         conversionFunctionUsed(
@@ -85,7 +92,7 @@
           r2UnitPrefix,
           r3Value,
           r3UnitPrefix,
-          DecimalPlace
+          decimalPlace
         );
     } else {
       [raValue, raUnitPrefix, rbValue, rbUnitPrefix, rcValue, rcUnitPrefix] = [
@@ -110,9 +117,15 @@
     rbUnitPrefix: unitLongPrefix,
     rcValue: inputConnectedVariable,
     rcUnitPrefix: unitLongPrefix,
-    DecimalPlace: number
+    decimalPlace: number,
+    componentUsed: componentUsedType,
+    convertingDtw: boolean
   ) {
     console.log("Bruh");
+    const conversionFunctionUsed = conversionFunction(
+      componentUsed,
+      convertingDtW
+    );
     if (!(raValue === "" || rbValue === "" || rcValue === "")) {
       [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] =
         conversionFunctionUsed(
@@ -122,7 +135,7 @@
           rbUnitPrefix,
           rcValue,
           rcUnitPrefix,
-          DecimalPlace
+          decimalPlace
         );
     } else {
       [r1Value, r1UnitPrefix, r2Value, r2UnitPrefix, r3Value, r3UnitPrefix] = [
@@ -136,31 +149,34 @@
     }
   }
 
-  // $: convertingDtW
-  //   ? recalculateWye(
-  //       raValue,
-  //       raUnitPrefix,
-  //       rbValue,
-  //       rbUnitPrefix,
-  //       rcValue,
-  //       rcUnitPrefix,
-  //       $DecimalPlaceStore
-  //     )
-  //   : recalculateDelta(
-  //       r1Value,
-  //       r1UnitPrefix,
-  //       r2Value,
-  //       r2UnitPrefix,
-  //       r3Value,
-  //       r3UnitPrefix,
-  //       $DecimalPlaceStore
-  //     );
-
   $: deltaImageUsed = (isDelta ? deltaIndex : piIndex)[$ComponentUsedStore];
   $: wyeImageUSed = (isWye ? wyeIndex : teeIndex)[$ComponentUsedStore];
 
-  // Coba approach yang lain. Gunakan event dispatcher on:change di tiap input. Lalu buat supaya ketika input di-change, rekalkulasi wye atau delta (tergantung itu input yang mana) dilakukan.
-  // Sepertinya unit tidak berubah seperti semestinya karena kita bind:value tidak bisa digunakan untuk props. Yang ke-bind adalah internal state yang diinisiasikan oleh props dari main ke input, bukan variabel yang ada di input sendiri. Coba lakukan binding seperti input value change. Gunakan on:change handler function.
+  $: if (convertingDtW) {
+    recalculateWye(
+      raValue,
+      raUnitPrefix,
+      rbValue,
+      rbUnitPrefix,
+      rcValue,
+      rcUnitPrefix,
+      $DecimalPlaceStore,
+      $ComponentUsedStore,
+      convertingDtW
+    );
+  } else {
+    recalculateDelta(
+      r1Value,
+      r1UnitPrefix,
+      r2Value,
+      r2UnitPrefix,
+      r3Value,
+      r3UnitPrefix,
+      $DecimalPlaceStore,
+      $ComponentUsedStore,
+      convertingDtW
+    );
+  }
 </script>
 
 <main>
@@ -208,7 +224,9 @@
               rbUnitPrefix,
               rcValue,
               rcUnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             );
           }}
         />
@@ -233,7 +251,9 @@
               rbUnitPrefix,
               rcValue,
               rcUnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             )}
         />
         <ValidatedInput
@@ -257,7 +277,9 @@
               rbUnitPrefix,
               rcValue,
               rcUnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             )}
         />
       </div>
@@ -308,7 +330,9 @@
               r2UnitPrefix,
               r3Value,
               r3UnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             )}
         />
         <ValidatedInput
@@ -332,7 +356,9 @@
               r2UnitPrefix,
               r3Value,
               r3UnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             )}
         />
         <ValidatedInput
@@ -356,7 +382,9 @@
               r2UnitPrefix,
               r3Value,
               r3UnitPrefix,
-              $DecimalPlaceStore
+              $DecimalPlaceStore,
+              $ComponentUsedStore,
+              convertingDtW
             )}
         />
       </div>
