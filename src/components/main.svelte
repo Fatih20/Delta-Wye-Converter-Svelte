@@ -411,18 +411,6 @@
       grid-column-gap: 50px;
       justify-items: center;
     }
-
-    /* Chrome, Safari, Edge, Opera */
-    & input::-webkit-outer-spin-button,
-    & input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    /* Firefox */
-    & input[type="number"] {
-      -moz-appearance: textfield;
-    }
   }
 
   #arrow-container {
@@ -433,11 +421,6 @@
     justify-content: center;
     /* padding-top: 40px; */
     width: 100%;
-
-    * {
-      font-size: 4em;
-      /* font-weight: 600; */
-    }
   }
 
   .network-type-chooser {

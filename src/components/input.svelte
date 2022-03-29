@@ -107,8 +107,11 @@
     color: #fafafa;
     filter: drop-shadow(0 3px 5px #0000007a);
     height: 2.25em;
+    margin: 0;
     padding: 0.4em;
     width: min(100%, 200px);
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
   }
 
   #styled-select {
