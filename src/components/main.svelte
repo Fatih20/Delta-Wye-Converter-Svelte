@@ -7,9 +7,8 @@
     inputConnectedVariable,
     unitLongPrefix,
   } from "../utilities/types";
-  import { library } from "@fortawesome/fontawesome-svg-core";
-  // import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
-  import { FontAwesomeIcon } from "fontawesome-svelte";
+  import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+  import Icon from "svelte-awesome";
 
   const rootPath = "CompressedCircuitImages/";
 
@@ -289,7 +288,9 @@
       </div>
     </div>
   </div>
-  <div id="arrow-container" />
+  <div id="arrow-container" class:DtW={convertingDtW}>
+    <Icon data={faArrowRightLong} scale={4} />
+  </div>
   <div id="wye-container">
     <div class="network-type-chooser">
       <button
@@ -426,7 +427,15 @@
     height: 100%;
     justify-content: center;
     /* padding-top: 40px; */
+    transition: transform 0.25s ease-in-out;
     width: 100%;
+
+    &.DtW {
+    }
+
+    &:not(.DtW) {
+      transform: rotate(180deg);
+    }
   }
 
   .network-type-chooser {

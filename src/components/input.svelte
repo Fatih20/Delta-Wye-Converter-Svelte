@@ -46,6 +46,7 @@
 
 <main id={gridArea}>
   <input
+    min="0"
     type="number"
     id="styled-input"
     value={externalValue}
@@ -109,11 +110,17 @@
     color: #fafafa;
     filter: drop-shadow(0 3px 5px #0000007a);
     height: 2.25em;
-    margin: 0;
     padding: 0.4em;
     width: min(100%, 200px);
-    -moz-appearance: textfield;
-    -webkit-appearance: none;
+
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
   }
 
   #styled-select {
